@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: test
+  namespace: test-system
+spec:
+  interval: 10m0s
+  path: ./
+  prune: true
+  serviceAccountName: flux-reconciler
+  sourceRef:
+    kind: GitRepository
+    name: test-gh
