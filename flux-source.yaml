@@ -7,6 +7,6 @@ metadata:
 spec:
   interval: 10m0s
   ref:
-    branch: main
+    branch: minikube-sa
   timeout: 1m0s
   url: https://github.com/tiesmaster/flux-test.git
