@@ -9,7 +9,7 @@ spec:
   ref:
     branch: main
   timeout: 1m0s
-  url: https://github.com/tiesmaster/flux-test.git
+  url: https://github.com/tiesmaster/flux-role-and-rolebinding-issue-with-service-accounts.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
