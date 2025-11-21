@@ -115,3 +115,13 @@ rolebinding.rbac.authorization.k8s.io "test-role-binding" deleted from test-syst
 $ kubectl --as system:serviceaccount:test-system:flux-reconciler apply -f rolebinding.yaml
 Error from server (NotFound): error when creating "rolebinding.yaml": rolebindings.rbac.authorization.k8s.io "test-role" not found
 ```
+
+## Why does this happen?
+
+What happens is that our customer Kustomizations are reconciled with a less privileged
+ServiceAccount which is bound to the admin role. When flux tries to reconcile, it will first do a
+"dry run", and when that fails, it won't apply. The role+rolebinding fails, and then it doesn't
+apply. The apply would actually succeed, because it first adds the role, and then the rolebinding.
+But the diff fails in such a situation. This is because it's not allowed to do a rolebinding to a
+non-existing role, as that is a [security
+risk](https://github.com/kubernetes/kubernetes/issues/110989#issuecomment-1281076750).
